@@ -1,0 +1,55 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"></head><body><div id="wikitext">
+<p><span style="font-size:144%"> <strong>Make your plots sexy again!</strong></span>
+</p>
+<div class="vspace"></div><h2>Size and Resolution</h2>
+<p>The size of the figure is given by: 
+</p><div class="indent"><code>fig = plt.figure(figsize=(6,4))</code>
+</div><ul><li>Use small numbers! Do not make a large figure and rearrange the label size, legend size,...  Instead:
+</li></ul><p>The resolution of the figure is set by dpi:
+</p><div class="indent"><code>fig.savefig("name.png", dpi=256) </code> 
+</div><div class="vspace"></div><h2>Legibility of a Plot</h2>
+<p>Use a grid: 
+</p><div class="indent"><code>plt.grid(linestyle=(0,(5, 10)),  linewidth=0.5)</code>
+</div><p>Include ticks on all axes:
+</p><div class="indent"><code>import matplotlib </code>
+</div><div class="indent"><code>matplotlib.rcParams['xtick.direction'] = 'in'</code>
+</div><div class="indent"><code>matplotlib.rcParams['ytick.direction'] = 'in'</code>
+</div><div class="indent"><code>matplotlib.rcParams['xtick.top'] = True</code>
+</div><div class="indent"><code>matplotlib.rcParams['ytick.right'] = True</code>
+</div><p>If you have words on one axis you can rotate the tick labels: 
+</p><div class="indent"><code>plt.xticks(rotation=90)</code>
+</div><p>Use logarithmic scale and do not label, e.g., log(E):
+</p><div class="indent"><code>plt.xscale("log")</code>
+</div><p>Use LaTex for axes labeling and legend:
+</p><div class="indent"><code>plt.xlabel(r"rate of \nu_\mu / \frac{1}{s}")</code>
+</div><p>You can use formatters on numbers on your axes. This is especially useful for degrees:
+</p><div class="indent"><code>import matplotlib.ticker as ticker</code>
+</div><div class="indent"><code>plt.gca().xaxis.set_major_formatter(ticker.FormatStrFormatter(u'%d°'))</code>
+</div><p>Units are not given in brackets (<del>energy E [eV]</del>):
+</p><ul><li>brackets are usually used as operator for "unit of" (according to ISO, NIST, IUPAC, IUPAP...) <a class="urllink" href="https://physics.stackexchange.com/questions/77690/square-bracket-notation-for-dimensions-and-units-usage-and-conventions" rel="nofollow">1</a> <a class="urllink" href="https://de.wikipedia.org/wiki/Internationales_Einheitensystem#Zusammenh%C3%A4ngende_Schreibweise_von_Gr%C3%B6%C3%9Fen,_Einheiten_und_Zahlenwerten" rel="nofollow">2</a>
+</li><li>write "energy E / eV" or "energy E in eV"
+</li></ul><p>If the figure is cut off after saving, use:
+</p><div class="indent"><code>plt.tight_layout()</code>
+</div><p><strong>Be nice to colorblind people!</strong> Most important, 
+do not use red-green plots of the same brightness. You can check online 
+for colorblind color palettes and use e.g. different linestyles and 
+markers. 
+</p>
+<div class="vspace"></div><h2>Colorbar</h2>
+<p><a class="urllink" href="https://matplotlib.org/3.1.1/gallery/color/colormap_reference.html" rel="nofollow">List of colormaps</a>
+</p>
+<div class="vspace"></div><ul><li><a class="urllink" href="https://jakevdp.github.io/blog/2014/10/16/how-bad-is-your-colormap" rel="nofollow">Never use jet!</a>
+</li><li>For a symmetric colorbar around zero or a certain value use a 
+diverging colormap such as seismic. Make sure that it is centered around
+ zero!
+</li><li>For non-symmetric colorbars use sequential colormaps, ideally colormaps that are still readable in gray-scale (e.g. cubehelix)
+</li><li>Label your colorbar
+</li><li>There are some colorbars for discrete steps, but you can customize a colorbar by your own:
+</li></ul><div class="indent"><code>color = array(["w", "silver", 
+"dimgrey", "k", "yellow", "gold", "darkorange", "red", "firebrick", 
+"lime","mediumseagreen", "darkgreen", "lightcyan", "cyan", "dodgerblue",
+ "navy"])</code>
+</div><div class="indent"><code>cmap = colors.ListedColormap(color)</code>
+</div><div class="indent"><code>plt.pcolormesh(x, y, matrix, cmap=cmap, vmin=0, vmax=int(matrix.max())+1)</code>
+</div></div></body></html>
